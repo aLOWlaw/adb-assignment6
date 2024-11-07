@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'authuser',
     'register',
     'products',
+    'history',
 ]
 
 AUTH_USER_MODEL = 'authuser.User'
@@ -145,3 +146,4 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:27017", "http://localhost:8000"]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
