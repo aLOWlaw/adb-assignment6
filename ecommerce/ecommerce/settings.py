@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-h^dvkh_url!*!te_+osd89dpe)%@gb6za)rcg(9oknt0+s=-yj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'authuser',
     'register',
+    'products',
 ]
 
 AUTH_USER_MODEL = 'authuser.User'
@@ -133,7 +135,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'products.paginations.CustomBooksPagination',
+    'PAGE_SIZE': 10
+
 }
 
 CORS_ALLOWED_ORIGINS = ["http://localhost:27017", "http://localhost:8000"]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
