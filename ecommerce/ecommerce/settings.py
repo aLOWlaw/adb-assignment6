@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'register',
     'products',
     'history',
+    'books',
 ]
 
 AUTH_USER_MODEL = 'authuser.User'
