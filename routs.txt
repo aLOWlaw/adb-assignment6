@@ -1,3 +1,0 @@
-api/login
-api/register
-api/getbooks 

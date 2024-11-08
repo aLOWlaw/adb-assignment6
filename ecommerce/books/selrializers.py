@@ -11,7 +11,6 @@ class ObjectIdField(serializers.Field):
     
 
 class BooksModelSerializer(serializers.ModelSerializer):
-    _id = ObjectIdField(read_only=True)
     class Meta:
         model = BooksModel
         fields = '__all__'

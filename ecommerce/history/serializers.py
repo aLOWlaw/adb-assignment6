@@ -3,6 +3,7 @@ from .models import HistoryModel
 from books.selrializers import BooksModelSerializer
 from django.contrib.auth import get_user_model
 from bson import ObjectId
+from .models import BooksModel
 
 class ObjectIdField(serializers.Field):
     def to_representation(self, value):
@@ -16,6 +17,7 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    _id = ObjectIdField(read_only=True)
     class Meta:
         model = User
         fields = ['_id', 'username', 'email']
@@ -29,3 +31,9 @@ class HistoryModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = HistoryModel
         fields = ['_id', 'book', 'user', 'created_at', 'interaction']
+
+
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BooksModel
+        fields = ['_id', 'title', 'author', 'category', 'description', 'publisher']
