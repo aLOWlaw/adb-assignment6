@@ -1,5 +1,6 @@
 from collections import Counter
 from .models import HistoryModel, BooksModel
+from bson import ObjectId
 
 def get_user_interactions(user):
     """
@@ -24,7 +25,8 @@ def recommend_books_based_on_user(user, top_n=5):
     print('similar_users------------------')
     print(similar_users)
     # Get books interacted with by these similar users (exclude already interacted books)
-    similar_books = HistoryModel.objects.filter(user_id__in=similar_users.values('_id')).exclude(book_id__in=interacted_books)
+    similar_books = HistoryModel.objects.filter(user_id__in=similar_users.values('_id')).filter(book_id__in=interacted_books)
+    similar_books = HistoryModel.objects.exclude(book_id__in = [x for x in similar_books])
     # .exclude(book_id__in=interacted_books)
     print('similar_books------------------')
     print(similar_books)
@@ -56,7 +58,7 @@ def recommend_books_by_category(user, top_n=5):
     print("KOKOKOKOK")
     print(categories)
     # Find books in the same categories, excluding already interacted books
-    recommended_books = BooksModel.objects.filter(category__in=[x for x in categories])
+    recommended_books = BooksModel.objects.filter(category__in=[x for x in categories]).exclude(_id__in=liked_books)
     print("FINSL")
     print(recommended_books)
     # .exclude(_id__in=liked_books)
