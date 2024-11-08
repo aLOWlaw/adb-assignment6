@@ -13,7 +13,7 @@ from rest_framework.response import Response
 class HistoryCreateView(generics.CreateAPIView):
     queryset = HistoryModel.objects.all()
     serializer_class = HistoryModelSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         book_data = serializer.validated_data.pop('book')
@@ -22,6 +22,7 @@ class HistoryCreateView(generics.CreateAPIView):
 
 
 class BookRecommendationsView(views.APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, *args, **kwargs):
         user = request.user  # Assuming the user is authenticated
         print(user)

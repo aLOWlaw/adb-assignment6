@@ -3,7 +3,7 @@ from .models import BooksModel
 from .selrializers import BooksModelSerializer, BooksModelCreateSerializer
 from .paginations import CustomBooksPagination
 from rest_framework import generics, viewsets
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from bson import ObjectId
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -19,12 +19,12 @@ class BooksModelListView(generics.ListAPIView):
 class BooksModelCreateView(generics.CreateAPIView):
     queryset = BooksModel.objects.all()
     serializer_class = BooksModelCreateSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
 class BooksModelDeleteView(generics.DestroyAPIView):
     queryset = BooksModel.objects.all()
     serializer_class = BooksModelSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
     lookup_field = '_id'
 
     def get_object(self):
@@ -35,7 +35,7 @@ class BooksModelDeleteView(generics.DestroyAPIView):
 class BooksModelGetView(generics.DestroyAPIView):
     queryset = BooksModel.objects.all()
     serializer_class = BooksModelSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     lookup_field = '_id'
 
     def get_object(self):
@@ -46,6 +46,7 @@ class BooksModelGetView(generics.DestroyAPIView):
 class BooksSearchViewSet(viewsets.ModelViewSet):
     queryset = BooksModel.objects.all()
     serializer_class = BooksModelSerializer
+    permission_classes = [IsAuthenticated]
 
     @action(detail=False, methods=['get'])
     def search(self, request):

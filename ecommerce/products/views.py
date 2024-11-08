@@ -1,5 +1,5 @@
 from rest_framework import views, generics
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from .models import ProductsModel
 from .serializers import ProductsModelSerializer
 from .paginations import CustomBooksPagination
@@ -13,18 +13,18 @@ class ListProductsView(generics.ListAPIView):
     queryset = ProductsModel.objects.all()
     serializer_class = ProductsModelSerializer
     pagination_class = CustomBooksPagination
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     
 class CreateProductsView(generics.CreateAPIView):
     queryset = ProductsModel.objects.all()
     serializer_class = ProductsModelSerializer
-    permission_classes = [AllowAny] #Change
+    permission_classes = [IsAdminUser] #Change
     # parser_classes = (MultiPartParser, FormParser)  # Allow file uploads
 
 class DeleteProductsView(generics.DestroyAPIView):
     queryset = ProductsModel.objects.all()
     serializer_class = ProductsModelSerializer
-    permission_classes = [AllowAny] #Change
+    permission_classes = [IsAdminUser] #Change
     lookup_field = '_id'
 
     def get_object(self):
@@ -35,7 +35,7 @@ class DeleteProductsView(generics.DestroyAPIView):
 class GetProductsView(generics.RetrieveAPIView):
     queryset = ProductsModel.objects.all()
     serializer_class = ProductsModelSerializer
-    permission_classes = [AllowAny] #Change
+    permission_classes = [IsAuthenticated] #Change
     lookup_field = '_id'
 
     def get_object(self):
