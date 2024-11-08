@@ -9,11 +9,11 @@ class BooksModel(models.Model):
     category = models.CharField(max_length=128)
     publisher = models.CharField(max_length=128)
     
-    class Meta:
-        indexes = [
-            models.Index(fields=['title']),
-            models.Index(fields=['author']),
-            models.Index(fields=['category']),
-            models.Index(fields=['description']),
-            models.Index(fields=['publisher']),
-        ]
+    # class Meta:
+    #     indexes = [
+    #         models.Index(fields=['title']),
+    #         models.Index(fields=['author']),
+    #         models.Index(fields=['category']),
+    #         models.Index(fields=['description']),
+    #         models.Index(fields=['publisher']),
+    #     ]

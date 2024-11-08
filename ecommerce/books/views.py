@@ -32,7 +32,7 @@ class BooksModelDeleteView(generics.DestroyAPIView):
         obj_id = ObjectId(self.kwargs.get(self.lookup_field))
         return self.get_queryset().get(_id=obj_id)    
 
-class BooksModelGetView(generics.DestroyAPIView):
+class BooksModelGetView(generics.RetrieveAPIView):
     queryset = BooksModel.objects.all()
     serializer_class = BooksModelSerializer
     permission_classes = [IsAuthenticated]
