@@ -3,5 +3,5 @@ from .views import HistoryCreateView
 
 
 urlpatterns = [
-    path('api/like/', HistoryCreateView.as_view(), name='create_like'),
+    path('api/action/', HistoryCreateView.as_view(), name='create_action'),
 ]

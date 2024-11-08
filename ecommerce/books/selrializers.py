@@ -1,7 +1,17 @@
 from rest_framework import serializers
 from .models import BooksModel
+from bson import ObjectId
+
+class ObjectIdField(serializers.Field):
+    def to_representation(self, value):
+        return str(value)
+
+    def to_internal_value(self, data):
+        return ObjectId(data)
+    
 
 class BooksModelSerializer(serializers.ModelSerializer):
+    _id = ObjectIdField(read_only=True)
     class Meta:
         model = BooksModel
         fields = '__all__'

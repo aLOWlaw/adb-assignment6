@@ -3,14 +3,14 @@ from .models import BooksModel
 from .selrializers import BooksModelSerializer, BooksModelCreateSerializer
 from .paginations import CustomBooksPagination
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from bson import ObjectId
 
 class BooksModelListView(generics.ListAPIView):
     queryset = BooksModel.objects.all()
     serializer_class = BooksModelSerializer
     pagination_class = CustomBooksPagination
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 class BooksModelCreateView(generics.CreateAPIView):
     queryset = BooksModel.objects.all()

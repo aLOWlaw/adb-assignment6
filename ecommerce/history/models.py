@@ -1,15 +1,20 @@
 from djongo import models
-from products.models import ProductsModel
-from authuser.models import User
+from books.models import BooksModel
+# from authuser.models import User
+from django.contrib.auth import get_user_model
+from books.models import BooksModel
 
-ITERACTION_CHOICES = (
+User = get_user_model()
+
+INTERACTION_CHOICES = (
         ("like", "like"),
-        ("purchase", "purchase")
+        ("purchase", "purchase"),
+        ('cart', 'cart')
     )
 
 class HistoryModel(models.Model):
     _id = models.ObjectIdField(primary_key = True)
-    product = models.EmbeddedField(model_container=ProductsModel)
-    user = models.CharField(max_length=255)
+    book = models.ForeignKey(BooksModel, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    iteraction = models.CharField(max_length=128, choices=ITERACTION_CHOICES)
+    interaction = models.CharField(max_length=128, choices=INTERACTION_CHOICES)
